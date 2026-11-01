@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+/* ========================================
+   ROYAL METALWORKS — DESIGN SYSTEM
+   Tailwind CSS v4
+======================================== */
+
+@theme inline {
+  /* Backgrounds */
+  --color-bg: #06130e;
+  --color-bg2: #0a1711;
+
+  /* Brand colors */
+  --color-beige: #dfc9a5;
+  --color-cream: #f3ecd9;
+  --color-gold: #d9b47a;
+  --color-ink: #15130f;
+
+  /* Borders */
+  --color-line: rgba(217, 180, 122, 0.3);
+
+  /* Typography */
+  --font-serif: var(--font-bodoni), Georgia, serif;
+  --font-sans: var(--font-inter), Arial, sans-serif;
+  --font-script: var(--font-allura), cursive;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+    scrollbar-color: #b99a69 #06130e;
+    scrollbar-width: thin;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: var(--color-bg);
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  img,
+  video,
+  svg {
+    max-width: 100%;
+  }
+
+  img {
+    height: auto;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 400;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+  textarea,
+  select {
+    width: 100%;
+    min-width: 0;
+    border: 1px solid rgba(243, 236, 217, 0.23);
+    border-radius: 2px;
+    background: rgba(4, 15, 10, 0.45);
+    color: var(--color-cream);
+    outline: none;
+    transition:
+      border-color 180ms ease,
+      background-color 180ms ease;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: rgba(243, 236, 217, 0.75);
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    border-color: var(--color-gold);
+    background: rgba(4, 15, 10, 0.75);
+  }
+
+  select option {
+    background: #0a1711;
+    color: var(--color-cream);
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+
+  section {
+    position: relative;
+    scroll-margin-top: 5rem;
+  }
+
+  @media (max-width: 640px) {
+    body {
+      font-size: 13px;
+    }
+
+    section {
+      scroll-margin-top: 4.5rem;
+    }
+  }
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #06130e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #92764c;
+  border: 2px solid #06130e;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d9b47a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
