@@ -37,8 +37,11 @@ type Site = {
   phone: string;
   whatsapp: string;
   email: string;
-  instagram: string;
+  instagram: string; // Instagram work
+  instagramPersonal: string; // Instagram personal
   location: string;
+  serviceLine: string;
+  deliveryNote: string;
 };
 type ModalType = "project" | { inquiry: Inquiry } | null;
 type Msg = { type: "error" | "ok"; text: string } | null;
@@ -209,7 +212,10 @@ export default function AdminDashboard() {
     whatsapp: "",
     email: "",
     instagram: "",
+    instagramPersonal: "",
     location: "",
+    serviceLine: "",
+    deliveryNote: "",
   });
 
   const [draft, setDraft] = useState({ title: "", category: categories[0], description: "" });
@@ -649,7 +655,7 @@ export default function AdminDashboard() {
                 </label>
                 <label className="block text-sm text-[#F5F0E7]/70">
                   Phone
-                  <input className={`${input} mt-1`} value={site.phone} onChange={(e) => setSite({ ...site, phone: e.target.value })} />
+                  <input className={`${input} mt-1`} placeholder="+255 765 053 786" value={site.phone} onChange={(e) => setSite({ ...site, phone: e.target.value })} />
                 </label>
                 <label className="block text-sm text-[#F5F0E7]/70">
                   Email
@@ -657,15 +663,27 @@ export default function AdminDashboard() {
                 </label>
                 <label className="block text-sm text-[#F5F0E7]/70">
                   WhatsApp number (with country code)
-                  <input className={`${input} mt-1`} placeholder="+92 300 1234567" value={site.whatsapp} onChange={(e) => setSite({ ...site, whatsapp: e.target.value })} />
+                  <input className={`${input} mt-1`} placeholder="+255 765 053 786" value={site.whatsapp} onChange={(e) => setSite({ ...site, whatsapp: e.target.value })} />
                 </label>
                 <label className="block text-sm text-[#F5F0E7]/70">
-                  Instagram (username or full link)
-                  <input className={`${input} mt-1`} placeholder="royalmetalworks" value={site.instagram} onChange={(e) => setSite({ ...site, instagram: e.target.value })} />
+                  Instagram work (shown as an icon in the footer)
+                  <input className={`${input} mt-1`} placeholder="https://instagram.com/yourworkpage" value={site.instagram} onChange={(e) => setSite({ ...site, instagram: e.target.value })} />
+                </label>
+                <label className="block text-sm text-[#F5F0E7]/70">
+                  Instagram personal (shown as a link in About Me)
+                  <input className={`${input} mt-1`} placeholder="https://instagram.com/yourpersonalpage" value={site.instagramPersonal} onChange={(e) => setSite({ ...site, instagramPersonal: e.target.value })} />
                 </label>
                 <label className="block text-sm text-[#F5F0E7]/70">
                   Location
-                  <input className={`${input} mt-1`} placeholder="Karachi, Pakistan" value={site.location} onChange={(e) => setSite({ ...site, location: e.target.value })} />
+                  <input className={`${input} mt-1`} placeholder="Ilala - Dar es Salaam" value={site.location} onChange={(e) => setSite({ ...site, location: e.target.value })} />
+                </label>
+                <label className="block text-sm text-[#F5F0E7]/70">
+                  Service line (shown in Contact)
+                  <input className={`${input} mt-1`} placeholder="Metal Cutting | CNC Custom Designs & Industrial Solutions" value={site.serviceLine} onChange={(e) => setSite({ ...site, serviceLine: e.target.value })} />
+                </label>
+                <label className="block text-sm text-[#F5F0E7]/70">
+                  Delivery note (shown in Contact)
+                  <input className={`${input} mt-1`} placeholder="Tunasafirisha mikoa zote (We deliver to all regions)" value={site.deliveryNote} onChange={(e) => setSite({ ...site, deliveryNote: e.target.value })} />
                 </label>
                 <div className="pt-2">
                   <button onClick={saveSite} disabled={busy} className={goldBtn}>

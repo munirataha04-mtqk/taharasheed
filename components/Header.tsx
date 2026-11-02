@@ -1,52 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { navLinks } from "@/config/site";
 
-const iconBtn =
-  "flex h-[36px] w-[36px] shrink-0 items-center justify-center border border-gold/60 text-gold transition-colors duration-300 hover:bg-gold hover:text-ink";
-
-function InstagramIcon() {
-  return (
-    <svg
-      width="17"
-      height="17"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" />
-    </svg>
-  );
-}
-
-function instaUrl(value: string) {
-  return value.startsWith("http")
-    ? value
-    : `https://instagram.com/${value.replace(/^@/, "")}`;
-}
-
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const [instagram, setInstagram] = useState("");
-
-  // Instagram link comes from Admin > Settings
-  useEffect(() => {
-    fetch("/api/settings")
-      .then((r) => (r.ok ? r.json() : null))
-      .then((s) => {
-        if (s?.instagram) setInstagram(s.instagram);
-      })
-      .catch(() => {});
-  }, []);
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-bg/95 backdrop-blur-md">
@@ -89,20 +49,8 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Desktop Instagram icon + quote button */}
+        {/* Desktop quote button */}
         <div className="hidden items-center gap-3 lg:flex">
-          {instagram && (
-            <a
-              href={instaUrl(instagram)}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className={iconBtn}
-            >
-              <InstagramIcon />
-            </a>
-          )}
-
           <Link
             href="/#contact"
             className="inline-flex min-h-[36px] items-center justify-center border border-gold px-5 py-2 text-[11px] text-cream transition-colors duration-300 hover:bg-gold hover:text-ink"
@@ -153,18 +101,6 @@ export default function Header() {
             >
               Get a Quote
             </Link>
-
-            {instagram && (
-              <a
-                href={instaUrl(instagram)}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className={`${iconBtn} h-[40px] w-[40px]`}
-              >
-                <InstagramIcon />
-              </a>
-            )}
           </div>
         </nav>
       )}

@@ -16,8 +16,11 @@ export async function PUT(req: Request) {
     phone: clean(body.phone, 40),
     whatsapp: clean(body.whatsapp, 40),
     email: clean(body.email, 150),
-    instagram: clean(body.instagram, 200),
+    instagram: clean(body.instagram, 200), // Instagram work
+    instagramPersonal: clean(body.instagramPersonal, 200), // Instagram personal
     location: clean(body.location, 200),
+    serviceLine: clean(body.serviceLine, 200),
+    deliveryNote: clean(body.deliveryNote, 200),
   };
   await writeJson(settingsFile, site);
   return NextResponse.json(site);

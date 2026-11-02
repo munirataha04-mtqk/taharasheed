@@ -14,7 +14,7 @@ const base =
 // Turns  +255 765053786 into 255 765053786 for wa.me
 function waNumber(v: string) {
   const d = v.replace(/\D/g, "");
-  return d.startsWith("0") ? `92${d.slice(1)}` : d;
+  return d.startsWith("0") ? `255${d.slice(1)}` : d;
 }
 
 function instaUrl(v: string) {

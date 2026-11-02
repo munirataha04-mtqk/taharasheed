@@ -1,11 +1,6 @@
-
 import Image from "next/image";
-import {
-  ShieldCheck,
-  Settings,
-  Star,
-  Handshake,
-} from "lucide-react";
+import { ShieldCheck, Settings, Star, Handshake } from "lucide-react";
+import { getSiteSettings } from "@/lib/settings";
 
 const points = [
   { label: "High-Quality Materials", Icon: ShieldCheck },
@@ -14,11 +9,20 @@ const points = [
   { label: "Customer Satisfaction", Icon: Handshake },
 ];
 
-export default function About() {
+function instaUrl(value: string) {
+  const v = value.trim();
+  if (v.startsWith("http")) return v;
+  if (v.includes("instagram.com")) return `https://${v.replace(/^\/+/, "")}`;
+  return `https://instagram.com/${v.replace(/^@/, "")}`;
+}
+
+export default async function About() {
+  const s = await getSiteSettings();
+  const personalInstagram = s.instagramPersonal?.trim();
+
   return (
     <section id="about" className="bg-beige text-ink">
       <div className="mx-auto grid max-w-[1440px] items-center gap-8 px-5 py-10 sm:px-8 sm:py-12 lg:grid-cols-[0.95fr_1.65fr] lg:gap-10 lg:px-12 lg:py-10">
-
         {/* Metalwork image */}
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-black/5">
           <Image
@@ -32,12 +36,9 @@ export default function About() {
 
         {/* About content */}
         <div className="grid gap-8 md:grid-cols-[1.35fr_0.85fr] md:gap-0">
-
           {/* Introduction */}
           <div className="md:pr-7">
-            <p className="text-[9px] font-medium uppercase tracking-[0.3em]">
-              About Me
-            </p>
+            <p className="text-[9px] font-medium uppercase tracking-[0.3em]">About Me</p>
 
             <h2 className="mt-2 font-serif text-[30px] leading-[1.12] tracking-[-0.025em] sm:text-4xl">
               Quality Metalwork,
@@ -54,25 +55,33 @@ export default function About() {
               or a unique CNC design, I deliver work that&apos;s built to last
               and made to impress.
             </p>
+
+            {/* Personal Instagram link (editable from Admin > Settings) */}
+            {personalInstagram && (
+              <p className="mt-3 text-[12px] sm:text-[13px]">
+                <a
+                  href={instaUrl(personalInstagram)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-[#8A5A2B] underline underline-offset-4 transition-colors hover:text-ink"
+                >
+                  Instagram
+                </a>
+              </p>
+            )}
           </div>
 
           {/* Company benefits */}
           <ul className="flex flex-col gap-5 border-t border-[#9A7440]/35 pt-5 md:ml-5 md:gap-6 md:border-l md:border-t-0 md:pl-6 md:pt-0">
             {points.map(({ label, Icon }) => (
-              <li
-                key={label}
-                className="flex items-center gap-3"
-              >
+              <li key={label} className="flex items-center gap-3">
                 <Icon
                   size={25}
                   strokeWidth={1.35}
                   className="shrink-0 text-[#8A5A2B]"
                   aria-hidden="true"
                 />
-
-                <span className="text-[11px] leading-relaxed sm:text-xs">
-                  {label}
-                </span>
+                <span className="text-[11px] leading-relaxed sm:text-xs">{label}</span>
               </li>
             ))}
           </ul>

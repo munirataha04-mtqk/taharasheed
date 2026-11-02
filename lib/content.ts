@@ -27,17 +27,23 @@ export type SiteSettings = {
   whatsappNumber: string;
   email: string;
   location: string;
-  instagram: string;
+  instagram: string; // Instagram work
+  instagramPersonal: string; // Instagram personal
   facebook: string;
+  serviceLine: string;
+  deliveryNote: string;
 };
 
 const defaults: SiteSettings = {
-  phone: siteConfig.phone,
-  whatsappNumber: siteConfig.whatsappNumber,
+  phone: "+255765053786",
+  whatsappNumber: "255765053786",
   email: siteConfig.email,
-  location: siteConfig.location,
+  location: "Ilala - Dar es Salaam",
   instagram: siteConfig.socials.instagram,
+  instagramPersonal: "",
   facebook: siteConfig.socials.facebook,
+  serviceLine: "Metal Cutting | CNC Custom Designs & Industrial Solutions",
+  deliveryNote: "Tunasafirisha mikoa zote (We deliver to all regions)",
 };
 
 export async function getSettings(): Promise<SiteSettings> {
@@ -51,6 +57,9 @@ export async function getSettings(): Promise<SiteSettings> {
     email: data.email || defaults.email,
     location: data.location || defaults.location,
     instagram: data.instagram || defaults.instagram,
+    instagramPersonal: data.instagram_personal || "",
     facebook: data.facebook || defaults.facebook,
+    serviceLine: data.service_line || defaults.serviceLine,
+    deliveryNote: data.delivery_note || defaults.deliveryNote,
   };
 }
