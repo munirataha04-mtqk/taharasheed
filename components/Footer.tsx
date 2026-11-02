@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Mail, Phone } from "lucide-react";
+import Image from "next/image";
 
 type Contact = {
   phone: string;
@@ -92,10 +93,17 @@ export default function Footer() {
   return (
     <footer className="bg-[#04150f] px-5 py-6 text-[#f3ead7] md:px-8">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 lg:flex-row lg:gap-4">
-        {/* Straight text logo */}
-        <a href="/" className="shrink-0 font-serif text-xl tracking-widest text-[#f3ead7]">
-          TR
-        </a>
+       
+         {/* Logo */}
+                <Image
+                 src="/images/logo.jpg"
+                 alt="Royal Metalworks logo"
+                 width={160}
+                 height={80}
+                 priority
+                 className="h-12 w-28 shrink-0 object-contain sm:h-14 sm:w-36"
+                 />
+        
 
         {/* Navigation */}
         <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm">
@@ -162,10 +170,9 @@ export default function Footer() {
         <span className="mx-3 text-xs text-[#bd9657]">◆</span>
         <div className="h-px flex-1 bg-[#bd9657]" />
       </div>
-      <p className="text-center text-xs">FOOTER TEST</p>
       {/* Copyright */}
       <p className="mt-4 text-center text-xs tracking-wide text-[#f3ead7]/80">
-        © 2026 Taha Rasheed Royal Metalworks. All rights reserved.
+        © 2026 Royal Metalworks. All rights reserved.
       </p>
     </footer>
   );

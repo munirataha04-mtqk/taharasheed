@@ -26,7 +26,7 @@ export default async function About() {
         {/* Metalwork image */}
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-black/5">
           <Image
-            src="/images/laser-machine.jpg"
+            src="/images/laser-machine.png"
             alt="Precision laser cutting machine working on a decorative metal sheet"
             fill
             sizes="(min-width: 1024px) 36vw, 100vw"

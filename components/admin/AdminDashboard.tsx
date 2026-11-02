@@ -112,15 +112,12 @@ function SidebarContent({
   return (
     <div className="flex h-full flex-col">
       <div className="flex items-center gap-3 px-5 py-6">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#D8B47A] font-serif text-sm font-bold text-[#D8B47A]">
-          TR
-        </span>
-        <div className="min-w-0 leading-tight">
-          <p className="truncate font-serif text-base text-[#D8B47A]">Taha Rasheed</p>
-          <p className="truncate text-sm text-[#F5F0E7]/60">Royal Metalworks</p>
-        </div>
-      </div>
-
+     <span className="flex h-10 w-5 shrink-0 items-center justify-center rounded-full border border-[#D8B47A] font-serif text-sm font-bold text-[#D8B47A]">
+     </span>
+     <div className="min-w-0 leading-tight">
+     <p className="truncate font-serif text-lg text-[#D8B47A]">Royal Metalworks</p>
+     </div>
+    </div>
       <nav className="flex-1 space-y-1 px-3">
         {nav.map(({ label, icon: Icon }) => (
           <button

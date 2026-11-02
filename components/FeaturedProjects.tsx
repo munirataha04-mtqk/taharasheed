@@ -22,7 +22,7 @@ export default async function FeaturedProjects() {
         {/* Section heading */}
         <div className="text-center">
           <p className="text-[9px] font-medium uppercase tracking-[0.3em] text-gold">
-            Our Portfolio
+            Our Projects
           </p>
 
           <h2 className="mt-2 font-serif text-[30px] leading-tight tracking-[-0.025em] sm:text-4xl">

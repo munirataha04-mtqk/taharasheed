@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { navLinks } from "@/config/site";
 
@@ -15,22 +16,19 @@ export default function Header() {
         <Link
           href="/#home"
           className="flex shrink-0 items-center gap-2.5 sm:gap-3"
-          aria-label="Taha Rasheed Royal Metalworks, home"
+          aria-label="Royal Metalworks, home"
           onClick={() => setOpen(false)}
         >
-          <span className="font-serif text-[34px] leading-none text-gold sm:text-[38px]">
-            TR
-          </span>
+          {/* Logo */}
+        <Image
+         src="/images/logo.jpg"
+         alt="Royal Metalworks logo"
+         width={160}
+         height={80}
+         priority
+         className="h-12 w-28 shrink-0 object-contain sm:h-14 sm:w-36"
+         />
 
-          <span className="flex flex-col leading-tight">
-            <span className="font-serif text-[17px] uppercase tracking-[0.07em] sm:text-xl">
-              Taha Rasheed
-            </span>
-
-            <span className="mt-1 text-[8px] uppercase tracking-[0.24em] text-cream/75 sm:text-[9px] sm:tracking-[0.3em]">
-              Royal Metalworks
-            </span>
-          </span>
         </Link>
 
         {/* Desktop navigation */}
