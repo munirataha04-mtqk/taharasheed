@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -10,7 +11,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-bg/95 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-[#107F94]/40 bg-[#003D40]/95 backdrop-blur-md">
       <div className="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-[60px]">
         {/* Brand */}
         <Link
@@ -20,15 +21,14 @@ export default function Header() {
           onClick={() => setOpen(false)}
         >
           {/* Logo */}
-        <Image
-         src="/images/logo.jpg"
-         alt="Royal Metalworks logo"
-         width={160}
-         height={80}
-         priority
-         className="h-12 w-28 shrink-0 object-contain sm:h-14 sm:w-36"
-         />
-
+          <Image
+            src="/images/logo.jpg"
+            alt="Royal Metalworks logo"
+            width={160}
+            height={80}
+            priority
+            className="h-12 w-28 shrink-0 object-contain sm:h-14 sm:w-36"
+          />
         </Link>
 
         {/* Desktop navigation */}
@@ -40,7 +40,7 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="relative py-2 text-[12px] text-cream/85 transition-colors duration-300 hover:text-gold"
+              className="relative py-2 text-[12px] text-[#FFFFFF]/85 transition-colors duration-300 hover:text-[#107F94]"
             >
               {link.label}
             </Link>
@@ -51,7 +51,7 @@ export default function Header() {
         <div className="hidden items-center gap-3 lg:flex">
           <Link
             href="/#contact"
-            className="inline-flex min-h-[36px] items-center justify-center border border-gold px-5 py-2 text-[11px] text-cream transition-colors duration-300 hover:bg-gold hover:text-ink"
+            className="inline-flex min-h-[36px] items-center justify-center border border-[#107F94] px-5 py-2 text-[11px] text-[#FFFFFF] transition-colors duration-300 hover:bg-[#107F94] hover:text-[#FFFFFF]"
           >
             Get a Quote
           </Link>
@@ -60,7 +60,7 @@ export default function Header() {
         {/* Mobile menu button */}
         <button
           type="button"
-          className="flex h-10 w-10 shrink-0 items-center justify-center text-gold transition-colors hover:text-cream lg:hidden"
+          className="flex h-10 w-10 shrink-0 items-center justify-center text-[#107F94] transition-colors hover:text-[#FFFFFF] lg:hidden"
           onClick={() => setOpen((previous) => !previous)}
           aria-expanded={open}
           aria-controls="mobile-menu"
@@ -75,7 +75,7 @@ export default function Header() {
         <nav
           id="mobile-menu"
           aria-label="Mobile navigation"
-          className="border-t border-line bg-bg2 px-5 pb-5 lg:hidden"
+          className="border-t border-[#107F94]/40 bg-[#003D40] px-5 pb-5 lg:hidden"
         >
           <ul className="mx-auto flex max-w-[600px] flex-col">
             {navLinks.map((link) => (
@@ -83,7 +83,7 @@ export default function Header() {
                 <Link
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block border-b border-line/40 py-3.5 text-[13px] text-cream/90 transition-colors hover:text-gold"
+                  className="block border-b border-[#107F94]/30 py-3.5 text-[13px] text-[#FFFFFF]/90 transition-colors hover:text-[#107F94]"
                 >
                   {link.label}
                 </Link>
@@ -95,7 +95,7 @@ export default function Header() {
             <Link
               href="/#contact"
               onClick={() => setOpen(false)}
-              className="flex min-h-[40px] flex-1 items-center justify-center border border-gold px-5 py-2 text-[12px] text-cream transition-colors hover:bg-gold hover:text-ink"
+              className="flex min-h-[40px] flex-1 items-center justify-center border border-[#107F94] px-5 py-2 text-[12px] text-[#FFFFFF] transition-colors hover:bg-[#107F94] hover:text-[#FFFFFF]"
             >
               Get a Quote
             </Link>

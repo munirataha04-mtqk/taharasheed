@@ -39,45 +39,50 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="bg-beige text-ink"
+      className="bg-white text-[#000000]"
     >
-      <div className="mx-auto max-w-[1440px] px-5 py-8 sm:px-8 sm:py-10 lg:px-12 lg:py-5">
+      <div className="mx-auto max-w-[1440px] px-5 py-10 sm:px-8 sm:py-12 lg:px-12 lg:py-14">
+
         {/* Section heading */}
         <div className="text-center">
-          <p className="text-[9px] font-medium uppercase tracking-[0.3em]">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#107F94]">
             Our Services
           </p>
 
-          <h2 className="mt-1 font-serif text-[30px] leading-tight tracking-[-0.025em] sm:text-4xl">
+          <h2 className="mt-2 font-serif text-[30px] leading-tight tracking-[-0.025em] text-[#003D40] sm:text-4xl">
             What We Offer
           </h2>
 
-          <div className="mx-auto mt-3 h-[2px] w-10 bg-[#B89563]" />
+          <div className="mx-auto mt-4 h-[2px] w-12 bg-[#107F94]" />
         </div>
 
         {/* Services */}
-        <ul className="mt-6 grid grid-cols-1 gap-y-8 min-[500px]:grid-cols-2 md:grid-cols-3 lg:mt-5 lg:grid-cols-5 lg:gap-y-0">
+        <ul className="mt-9 grid grid-cols-1 gap-y-9 min-[500px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-y-0">
+
           {services.map(({ title, text, Icon }) => (
             <li
               key={title}
-              className="flex flex-col items-center px-4 text-center lg:min-h-[115px] lg:border-l lg:border-[#96774F]/35 lg:first:border-l-0"
+              className="group flex flex-col items-center px-4 text-center lg:min-h-[150px] lg:border-l lg:border-[#003D40]/15 lg:first:border-l-0"
             >
-              <Icon
-                size={43}
-                strokeWidth={1.35}
-                className="shrink-0 text-[#8A5A2B]"
-                aria-hidden="true"
-              />
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#003D40]/5 transition-colors duration-300 group-hover:bg-[#107F94]/10">
+                <Icon
+                  size={29}
+                  strokeWidth={1.4}
+                  className="shrink-0 text-[#107F94] transition-transform duration-300 group-hover:scale-110"
+                  aria-hidden="true"
+                />
+              </div>
 
-              <h3 className="mt-2 font-serif text-[17px] leading-tight sm:text-lg">
+              <h3 className="mt-3 font-serif text-[18px] leading-tight text-[#003D40]">
                 {title}
               </h3>
 
-              <p className="mt-2 max-w-[175px] text-[11px] leading-[1.6] text-ink/85 sm:text-xs">
+              <p className="mt-2 max-w-[190px] text-xs leading-[1.7] text-black/65">
                 {text}
               </p>
             </li>
           ))}
+
         </ul>
       </div>
     </section>

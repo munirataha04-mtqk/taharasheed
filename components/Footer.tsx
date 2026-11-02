@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -12,9 +13,9 @@ type Contact = {
 };
 
 const iconLink =
-  "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#bd9657] text-[#bd9657] transition-colors hover:bg-[#bd9657] hover:text-[#04150f]";
+  "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#FFFFFF]/70 text-[#FFFFFF] transition-colors duration-200 hover:border-[#107F94] hover:bg-[#107F94] hover:text-[#FFFFFF]";
 
-// Outline icons drawn to match the Lucide phone and mail icons
+// Instagram outline icon
 function InstagramIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
@@ -35,6 +36,7 @@ function InstagramIcon({ size = 16 }: { size?: number }) {
   );
 }
 
+// WhatsApp outline icon
 function WhatsAppIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
@@ -54,15 +56,28 @@ function WhatsAppIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-// 0765053786 or +255 765 053 786 becomes 255765053786 for wa.me
+// Converts a Tanzanian phone number to the format required by wa.me
 function waNumber(value: string) {
   const digits = value.replace(/\D/g, "");
-  return digits.startsWith("0") ? `255${digits.slice(1)}` : digits;
+  return digits.startsWith("0")
+    ? `255${digits.slice(1)}`
+    : digits;
 }
 
 function instaUrl(value: string) {
   const v = value.trim();
-  return v.startsWith("http") ? v : `https://instagram.com/${v.replace(/^@/, "")}`;
+
+  if (!v) return "";
+
+  if (/^https?:\/\//i.test(v)) {
+    return v;
+  }
+
+  if (v.includes("instagram.com")) {
+    return `https://${v.replace(/^\/+/, "")}`;
+  }
+
+  return `https://instagram.com/${v.replace(/^@/, "")}`;
 }
 
 export default function Footer() {
@@ -91,44 +106,64 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="bg-[#04150f] px-5 py-6 text-[#f3ead7] md:px-8">
+    <footer className="bg-[#003D40] px-5 py-6 text-[#FFFFFF] md:px-8">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 lg:flex-row lg:gap-4">
-       
-         {/* Logo */}
-                <Image
-                 src="/images/logo.jpg"
-                 alt="Royal Metalworks logo"
-                 width={160}
-                 height={80}
-                 priority
-                 className="h-12 w-28 shrink-0 object-contain sm:h-14 sm:w-36"
-                 />
-        
+        {/* Logo */}
+        <Image
+          src="/images/logo.jpg"
+          alt="Royal Metalworks logo"
+          width={160}
+          height={80}
+          priority
+          className="h-12 w-28 shrink-0 object-contain sm:h-14 sm:w-36"
+        />
 
         {/* Navigation */}
         <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm">
-          <a href="/#services" className="transition-colors hover:text-[#bd9657]">
+          <a
+            href="/#services"
+            className="transition-colors hover:text-[#107F94]"
+          >
             Services
           </a>
-          <span className="h-4 w-px bg-[#bd9657]" />
-          <a href="/#about" className="transition-colors hover:text-[#bd9657]">
+
+          <span className="h-4 w-px bg-[#107F94]" />
+
+          <a
+            href="/#about"
+            className="transition-colors hover:text-[#107F94]"
+          >
             About
           </a>
-          <span className="h-4 w-px bg-[#bd9657]" />
-          <a href="/#contact" className="transition-colors hover:text-[#bd9657]">
+
+          <span className="h-4 w-px bg-[#107F94]" />
+
+          <a
+            href="/#contact"
+            className="transition-colors hover:text-[#107F94]"
+          >
             Contact
           </a>
-          <span className="h-4 w-px bg-[#bd9657]" />
-          <a href="/admin" className="transition-colors hover:text-[#bd9657]">
+
+          <span className="h-4 w-px bg-[#107F94]" />
+
+          <a
+            href="/admin"
+            className="transition-colors hover:text-[#107F94]"
+          >
             Admin
           </a>
         </nav>
 
-        {/* Contact icons only */}
+        {/* White contact icons */}
         <div className="flex flex-wrap items-center justify-center gap-3">
           {c.phone && (
-            <a href={`tel:${c.phone.replace(/[^\d+]/g, "")}`} aria-label="Call us" className={iconLink}>
-              <Phone size={16} />
+            <a
+              href={`tel:${c.phone.replace(/[^\d+]/g, "")}`}
+              aria-label="Call us"
+              className={iconLink}
+            >
+              <Phone size={16} aria-hidden="true" />
             </a>
           )}
 
@@ -145,8 +180,12 @@ export default function Footer() {
           )}
 
           {c.email && (
-            <a href={`mailto:${c.email}`} aria-label="Send an email" className={iconLink}>
-              <Mail size={16} />
+            <a
+              href={`mailto:${c.email}`}
+              aria-label="Send an email"
+              className={iconLink}
+            >
+              <Mail size={16} aria-hidden="true" />
             </a>
           )}
 
@@ -164,14 +203,15 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Thin gold divider */}
+      {/* Teal divider */}
       <div className="mx-auto mt-5 flex max-w-7xl items-center">
-        <div className="h-px flex-1 bg-[#bd9657]" />
-        <span className="mx-3 text-xs text-[#bd9657]">◆</span>
-        <div className="h-px flex-1 bg-[#bd9657]" />
+        <div className="h-px flex-1 bg-[#107F94]" />
+        <span className="mx-3 text-xs text-[#107F94]">◆</span>
+        <div className="h-px flex-1 bg-[#107F94]" />
       </div>
+
       {/* Copyright */}
-      <p className="mt-4 text-center text-xs tracking-wide text-[#f3ead7]/80">
+      <p className="mt-4 text-center text-xs tracking-wide text-[#FFFFFF]/80">
         © 2026 Royal Metalworks. All rights reserved.
       </p>
     </footer>

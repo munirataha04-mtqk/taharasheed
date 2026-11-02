@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
@@ -11,14 +12,13 @@ export default function Reveal({
   delay?: number;
   className?: string;
 }) {
-  const ref = useRef<HTMLLIElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    // Skip the animation for people who turned off motion in their system
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setShown(true);
       return;
@@ -33,12 +33,14 @@ export default function Reveal({
       },
       { threshold: 0.15 }
     );
+
     observer.observe(el);
+
     return () => observer.disconnect();
   }, []);
 
   return (
-    <li
+    <div
       ref={ref}
       style={{ transitionDelay: `${delay}ms` }}
       className={`transition-all duration-700 ease-out ${
@@ -46,6 +48,6 @@ export default function Reveal({
       } ${className}`}
     >
       {children}
-    </li>
+    </div>
   );
 }

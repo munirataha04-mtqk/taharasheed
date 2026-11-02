@@ -48,10 +48,10 @@ export default function PortfolioGallery({
             key={f}
             onClick={() => setFilter(f)}
             aria-pressed={filter === f}
-            className={`min-h-11 rounded-full border px-5 py-2 text-sm transition-colors ${
+            className={`min-h-11 rounded-full border px-5 py-2 text-sm transition-colors duration-300 ${
               filter === f
-                ? "border-gold bg-gold text-ink"
-                : "border-line hover:border-gold hover:text-gold"
+                ? "border-[#107F94] bg-[#107F94] text-white"
+                : "border-[#003D40]/40 text-[#003D40] hover:border-[#107F94] hover:bg-[#003D40] hover:text-white"
             }`}
           >
             {f}
@@ -67,7 +67,7 @@ export default function PortfolioGallery({
               className="group block w-full text-left"
               aria-label={`Open larger image: ${p.title}`}
             >
-              <div className="relative aspect-[4/5] overflow-hidden border border-line">
+              <div className="relative aspect-[4/5] overflow-hidden border border-[#003D40]/20 bg-[#003D40]/5">
                 <Image
                   src={p.image}
                   alt={p.alt}
@@ -77,8 +77,12 @@ export default function PortfolioGallery({
                 />
               </div>
 
-              <p className="mt-3 font-serif text-xl">{p.title}</p>
-              <p className="text-xs text-cream/70">{p.caption}</p>
+              <p className="mt-3 font-serif text-xl text-[#003D40]">
+                {p.title}
+              </p>
+              <p className="text-xs text-black/60">
+                {p.caption}
+              </p>
             </button>
           </li>
         ))}
@@ -89,13 +93,13 @@ export default function PortfolioGallery({
           role="dialog"
           aria-modal="true"
           aria-label={selected.title}
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-4"
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 p-4"
           onClick={() => setSelected(null)}
         >
           <button
             onClick={() => setSelected(null)}
             aria-label="Close image"
-            className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center text-cream hover:text-gold"
+            className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center text-white transition-colors hover:text-[#107F94]"
           >
             <X size={30} />
           </button>

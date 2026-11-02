@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -17,11 +18,11 @@ export default async function FeaturedProjects() {
   const featured = (await readJson<Project[]>(projectsFile, [])).slice(0, 5);
 
   return (
-    <section id="portfolio" className="bg-bg text-cream">
+    <section id="portfolio" className="bg-[#003D40] text-[#FFFFFF]">
       <div className="mx-auto max-w-[1440px] px-5 py-10 sm:px-8 sm:py-12 lg:px-12 lg:py-10">
         {/* Section heading */}
         <div className="text-center">
-          <p className="text-[9px] font-medium uppercase tracking-[0.3em] text-gold">
+          <p className="text-[9px] font-medium uppercase tracking-[0.3em] text-[#107F94]">
             Our Projects
           </p>
 
@@ -29,12 +30,12 @@ export default async function FeaturedProjects() {
             Featured Projects
           </h2>
 
-          <div className="mx-auto mt-3 h-[2px] w-10 bg-gold" />
+          <div className="mx-auto mt-3 h-[2px] w-10 bg-[#107F94]" />
         </div>
 
         {/* Project gallery */}
         {featured.length === 0 ? (
-          <p className="mt-8 text-center text-sm text-cream/60">
+          <p className="mt-8 text-center text-sm text-[#FFFFFF]/60">
             New projects are coming soon.
           </p>
         ) : (
@@ -49,7 +50,7 @@ export default async function FeaturedProjects() {
                 <Link
                   href="/portfolio"
                   aria-label={`View ${project.title} project`}
-                  className="relative block aspect-[4/5] overflow-hidden border border-line bg-black/20 transition-colors duration-300 group-hover:border-gold"
+                  className="relative block aspect-[4/5] overflow-hidden border border-[#107F94]/30 bg-[#2F3035]/20 transition-colors duration-300 group-hover:border-[#107F94]"
                 >
                   {project.image ? (
                     <Image
@@ -61,7 +62,7 @@ export default async function FeaturedProjects() {
                       className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
                     />
                   ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#1d3a2f] to-[#0B1512]" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#107F94] to-[#003D40]" />
                   )}
 
                   {/* Subtle image overlay */}
@@ -69,18 +70,18 @@ export default async function FeaturedProjects() {
                 </Link>
 
                 {/* Project title */}
-                <h3 className="mt-3 font-serif text-[19px] leading-tight tracking-[-0.02em] transition-colors duration-300 group-hover:text-gold sm:text-xl">
+                <h3 className="mt-3 font-serif text-[19px] leading-tight tracking-[-0.02em] transition-colors duration-300 group-hover:text-[#107F94] sm:text-xl">
                   {project.title}
                 </h3>
 
                 {/* Project category */}
-                <p className="mt-1 text-[10px] leading-relaxed text-cream/65 sm:text-[11px]">
+                <p className="mt-1 text-[10px] leading-relaxed text-[#FFFFFF]/75 sm:text-[11px]">
                   {project.category}
                 </p>
 
                 {/* Optional description */}
                 {project.description && (
-                  <p className="mt-1 line-clamp-3 text-[10px] leading-relaxed text-cream/65 sm:text-[11px]">
+                  <p className="mt-1 line-clamp-3 text-[10px] leading-relaxed text-[#FFFFFF]/65 sm:text-[11px]">
                     {project.description}
                   </p>
                 )}
@@ -93,7 +94,7 @@ export default async function FeaturedProjects() {
         <div className="mt-8 text-center">
           <Link
             href="/portfolio"
-            className="inline-flex min-h-[38px] items-center justify-center gap-3 rounded-[2px] border border-gold px-6 py-2.5 text-[11px] font-medium text-cream transition-colors duration-300 hover:bg-gold hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+            className="inline-flex min-h-[38px] items-center justify-center gap-3 rounded-[2px] border border-[#107F94] px-6 py-2.5 text-[11px] font-medium text-[#FFFFFF] transition-colors duration-300 hover:bg-[#107F94] hover:text-[#FFFFFF] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#107F94]"
           >
             View All Projects
             <ArrowRight size={14} strokeWidth={1.5} />
