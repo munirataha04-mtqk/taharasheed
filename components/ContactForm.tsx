@@ -1,114 +1,124 @@
+"use client";
 
-import Image from "next/image";
-import {
-  Phone,
-  Mail,
-  MapPin,
-  MessageCircle,
-  Truck,
-  Wrench,
-} from "lucide-react";
-import ContactForm from "./ContactForm";
-import { getSettings } from "@/lib/content";
+import { useState } from "react";
 
-export default async function Contact() {
-  const s = await getSettings();
+const services = [
+  "Gates",
+  "Pergolas",
+  "Partitions",
+  "CNC Designs",
+  "Custom Fabrication",
+];
 
-  const telUrl = `tel:${s.phone.replace(/[^\d+]/g, "")}`;
-  const mailUrl = `mailto:${s.email}`;
+export default function ContactForm() {
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle"
+  );
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const digits = s.whatsappNumber.replace(/\D/g, "");
-  const wa = digits.startsWith("0")
-    ? `255${digits.slice(1)}`
-    : digits;
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    setStatus("sending");
+    setErrorMsg("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const result = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        setErrorMsg(result.error || "Something went wrong. Please try again.");
+        setStatus("error");
+        return;
+      }
+
+      setStatus("sent");
+      form.reset();
+    } catch {
+      setErrorMsg("Could not reach the server. Please try again.");
+      setStatus("error");
+    }
+  }
+
+  const field =
+    "w-full min-h-[48px] rounded-sm border border-white/20 bg-[#252A30] px-4 py-3 text-sm text-white placeholder:text-white/50 outline-none transition-colors focus:border-[#107F94] focus:ring-1 focus:ring-[#107F94]/30";
 
   return (
-    <section
-      id="contact"
-      className="relative isolate overflow-hidden bg-[#003D40] text-white"
+    <form
+      onSubmit={handleSubmit}
+      className="w-full space-y-4 rounded-sm bg-[#2F3239] text-white"
     >
-      <Image
-        src="/images/cnc-1.jpg"
-        alt=""
-        fill
-        sizes="100vw"
-        className="-z-10 object-cover opacity-[0.035]"
+      <p className="text-[10px] font-medium uppercase tracking-[0.32em] text-[#107F94]">
+        Request a Quote
+      </p>
+
+      <input name="name" required placeholder="Your name" className={field} />
+
+      <input
+        name="phone"
+        required
+        placeholder="Phone / WhatsApp"
+        className={field}
       />
 
-      <div className="flex w-full flex-col lg:flex-row">
+      <input
+        name="email"
+        type="email"
+        required
+        placeholder="Email"
+        className={field}
+      />
 
-        {/* LEFT SIDE - 50% */}
-        <div className="w-full bg-[#003D40] px-6 py-10 sm:px-8 md:px-10 lg:w-1/2 lg:flex-none lg:px-14 lg:py-12 xl:px-16">
+      <select
+        name="service"
+        required
+        defaultValue=""
+        className={`${field} cursor-pointer`}
+      >
+        <option value="" disabled className="bg-white text-black">
+          Select a service
+        </option>
 
-          <p className="text-[10px] font-medium uppercase tracking-[0.32em] text-[#107F94]">
-            Get in Touch
-          </p>
+        {services.map((s) => (
+          <option key={s} value={s} className="bg-white text-black">
+            {s}
+          </option>
+        ))}
+      </select>
 
-          <h2 className="mt-1.5 font-serif text-[27px] leading-[1.12] tracking-tight text-white sm:text-3xl">
-            Let&apos;s Build Something
-            <br className="hidden sm:block" /> Great Together
-          </h2>
+      <textarea
+        name="message"
+        required
+        rows={5}
+        placeholder="Tell us about your project"
+        className="w-full min-h-[130px] resize-y rounded-sm border border-white/20 bg-[#252A30] px-4 py-3 text-sm text-white placeholder:text-white/50 outline-none transition-colors focus:border-[#107F94] focus:ring-1 focus:ring-[#107F94]/30"
+      />
 
-          <p className="mt-2.5 max-w-[310px] text-[11px] leading-[1.8] text-white/75 sm:text-xs">
-            For inquiries, quotations or to discuss your project,
-            feel free to contact us. We&apos;re here to help!
-          </p>
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="w-full min-h-[48px] rounded-sm bg-[#107F94] px-4 py-3 text-xs font-medium uppercase tracking-[0.2em] text-white transition-colors hover:bg-[#0D6B7D] disabled:opacity-60"
+      >
+        {status === "sending" ? "Sending..." : "Send Request"}
+      </button>
 
-          <ul className="mt-4 space-y-2.5 text-[11px] text-white sm:text-xs">
+      {status === "sent" && (
+        <p className="text-xs text-[#45B8A9]">
+          Thank you! We received your request and will contact you soon.
+        </p>
+      )}
 
-            {s.serviceLine && (
-              <li className="flex items-start gap-3">
-                <Wrench size={14} className="mt-0.5 shrink-0 text-[#107F94]" />
-                <span className="max-w-[300px]">{s.serviceLine}</span>
-              </li>
-            )}
-
-            {s.location && (
-              <li className="flex items-center gap-3">
-                <MapPin size={15} className="shrink-0 text-[#107F94]" />
-                <span>{s.location}</span>
-              </li>
-            )}
-
-            {s.deliveryNote && (
-              <li className="flex items-center gap-3">
-                <Truck size={15} className="shrink-0 text-[#107F94]" />
-                <span>{s.deliveryNote}</span>
-              </li>
-            )}
-
-            {s.phone && (
-              <li className="flex items-center gap-3">
-                <Phone size={14} className="shrink-0 text-[#107F94]" />
-                <a href={telUrl}>{s.phone}</a>
-              </li>
-            )}
-
-            {wa && (
-              <li className="flex items-center gap-3">
-                <MessageCircle size={14} className="shrink-0 text-[#107F94]" />
-                <a href={`https://wa.me/${wa}`} target="_blank" rel="noopener noreferrer">
-                  wa.me/{wa}
-                </a>
-              </li>
-            )}
-
-            {s.email && (
-              <li className="flex items-center gap-3">
-                <Mail size={14} className="shrink-0 text-[#107F94]" />
-                <a href={mailUrl} className="break-all">{s.email}</a>
-              </li>
-            )}
-
-          </ul>
-        </div>
-
-        {/* RIGHT SIDE - 50% */}
-        <div className="w-full bg-[#003D40] px-6 py-10 sm:px-8 md:px-10 lg:w-1/2 lg:flex-none lg:px-12 lg:py-12">
-          <ContactForm />
-        </div>
-
-      </div>
-    </section>
+      {status === "error" && (
+        <p className="text-xs text-red-400">{errorMsg}</p>
+      )}
+    </form>
   );
 }

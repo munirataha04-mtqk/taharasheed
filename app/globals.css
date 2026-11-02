@@ -189,3 +189,27 @@
     transition-duration: 0.01ms !important;
   }
 }
+/* Royal Metalworks Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2F3239;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #107F94;
+  border-radius: 10px;
+  border: 2px solid #2F3239;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0D6B7D;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #107F94 #2F3239;
+}

@@ -1,3 +1,4 @@
+import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
 const services = ["Gates", "Pergolas", "Partitions", "CNC Designs", "Custom Fabrication"];
@@ -16,29 +17,30 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Message is too long." }, { status: 400 });
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL;
-  if (!apiKey || !to) {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) {
     return NextResponse.json(
-      { error: "The contact form is not connected to an email service yet." },
+      { error: "The server is not connected to the database yet." },
       { status: 503 }
     );
   }
 
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      from: "Royal Metalworks Website <onboarding@resend.dev>",
-      to: [to],
-      reply_to: email,
-      subject: `New inquiry: ${service} from ${name}`,
-      text: `Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nService: ${service}\n\n${message}`,
-    }),
+  const supabase = createClient(url, key);
+  const { error } = await supabase.from("inquiries").insert({
+    name: name.trim(),
+    phone: phone.trim(),
+    email: email.trim(),
+    service,
+    message: message.trim(),
   });
 
-  if (!res.ok) {
-    return NextResponse.json({ error: "Could not send your message. Please try again later." }, { status: 502 });
+  if (error) {
+    console.error("Supabase insert error:", error);
+    return NextResponse.json(
+      { error: "Could not save your request. Please try again later." },
+      { status: 500 }
+    );
   }
   return NextResponse.json({ ok: true });
 }

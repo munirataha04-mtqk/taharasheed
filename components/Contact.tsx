@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import {
   Phone,
@@ -10,15 +9,18 @@ import {
 } from "lucide-react";
 import ContactForm from "./ContactForm";
 import { getSettings } from "@/lib/content";
+import EmailLink from "./EmailLink";
 
 export default async function Contact() {
   const s = await getSettings();
 
-  const telUrl = `tel:${s.phone.replace(/[^\d+]/g, "")}`;
-  const mailUrl = `mailto:${s.email}`;
+  const phone = s.phone ?? "";
+  const email = s.email ?? "";
+  const whatsappNumber = s.whatsappNumber ?? "";
 
-  // Tanzania country code is 255
-  const digits = s.whatsappNumber.replace(/\D/g, "");
+  const telUrl = `tel:${phone.replace(/[^\d+]/g, "")}`;
+
+  const digits = whatsappNumber.replace(/\D/g, "");
   const wa = digits.startsWith("0")
     ? `255${digits.slice(1)}`
     : digits;
@@ -26,7 +28,7 @@ export default async function Contact() {
   return (
     <section
       id="contact"
-      className="relative isolate overflow-hidden bg-[#003D40] text-white"
+      className="relative isolate overflow-hidden bg-[#2F3239] text-white"
     >
       <Image
         src="/images/cnc-1.jpg"
@@ -36,10 +38,10 @@ export default async function Contact() {
         className="-z-10 object-cover opacity-[0.035]"
       />
 
-      <div className="flex w-full flex-col gap-0 lg:flex-row lg:items-stretch">
+      <div className="flex w-full flex-col lg:flex-row lg:items-stretch">
 
-        {/* Get in Touch */}
-        <div className="min-w-0 flex-1 bg-[#003D40] px-6 py-10 sm:px-8 md:px-10 lg:px-14 lg:py-8 xl:px-16">
+        {/* LEFT SIDE */}
+        <div className="w-full min-w-0 bg-[#2F3239] px-6 py-10 sm:px-8 md:px-10 lg:w-1/2 lg:flex-none lg:px-14 lg:py-12 xl:px-16">
 
           <p className="text-[10px] font-medium uppercase tracking-[0.32em] text-[#107F94]">
             Get in Touch
@@ -59,62 +61,37 @@ export default async function Contact() {
 
             {s.serviceLine && (
               <li className="flex items-start gap-3">
-                <Wrench
-                  size={14}
-                  strokeWidth={1.8}
-                  className="mt-0.5 shrink-0 text-[#107F94]"
-                  aria-hidden="true"
-                />
+                <Wrench size={14} strokeWidth={1.8} className="mt-0.5 shrink-0 text-[#107F94]" />
                 <span className="max-w-[300px]">{s.serviceLine}</span>
               </li>
             )}
 
             {s.location && (
               <li className="flex items-center gap-3">
-                <MapPin
-                  size={15}
-                  strokeWidth={1.8}
-                  className="shrink-0 text-[#107F94]"
-                  aria-hidden="true"
-                />
+                <MapPin size={15} strokeWidth={1.8} className="shrink-0 text-[#107F94]" />
                 <span>{s.location}</span>
               </li>
             )}
 
             {s.deliveryNote && (
               <li className="flex items-center gap-3">
-                <Truck
-                  size={15}
-                  strokeWidth={1.8}
-                  className="shrink-0 text-[#107F94]"
-                  aria-hidden="true"
-                />
+                <Truck size={15} strokeWidth={1.8} className="shrink-0 text-[#107F94]" />
                 <span>{s.deliveryNote}</span>
               </li>
             )}
 
-            {s.phone && (
+            {phone && (
               <li className="flex items-center gap-3">
-                <Phone
-                  size={14}
-                  strokeWidth={1.8}
-                  className="shrink-0 text-[#107F94]"
-                  aria-hidden="true"
-                />
+                <Phone size={14} strokeWidth={1.8} className="shrink-0 text-[#107F94]" />
                 <a href={telUrl} className="transition-colors duration-200 hover:text-[#107F94]">
-                  {s.phone}
+                  {phone}
                 </a>
               </li>
             )}
 
             {wa && (
               <li className="flex items-center gap-3">
-                <MessageCircle
-                  size={14}
-                  strokeWidth={1.8}
-                  className="shrink-0 text-[#107F94]"
-                  aria-hidden="true"
-                />
+                <MessageCircle size={14} strokeWidth={1.8} className="shrink-0 text-[#107F94]" />
                 <a
                   href={`https://wa.me/${wa}`}
                   target="_blank"
@@ -126,25 +103,23 @@ export default async function Contact() {
               </li>
             )}
 
-            {s.email && (
+            {email && (
               <li className="flex items-center gap-3">
-                <Mail
-                  size={14}
-                  strokeWidth={1.8}
-                  className="shrink-0 text-[#107F94]"
-                  aria-hidden="true"
-                />
-                <a href={mailUrl} className="break-all transition-colors duration-200 hover:text-[#107F94]">
-                  {s.email}
-                </a>
+                <Mail size={14} strokeWidth={1.8} className="shrink-0 text-[#107F94]" />
+                <EmailLink
+                  email={email}
+                  className="break-all transition-colors duration-200 hover:text-[#107F94]"
+                >
+                  {email}
+                </EmailLink>
               </li>
             )}
 
           </ul>
         </div>
 
-        {/* Contact Form */}
-        <div className="w-full min-w-0 flex-1 bg-[#003D40] px-6 py-10 sm:px-8 md:px-10 lg:px-8 lg:py-8 [&>*]:!max-w-none [&>*]:w-full">
+        {/* RIGHT SIDE - CONTACT FORM */}
+        <div className="w-full min-w-0 bg-[#2F3239] px-6 py-10 sm:px-8 md:px-10 lg:w-1/2 lg:flex-none lg:px-12 lg:py-12">
           <ContactForm />
         </div>
 

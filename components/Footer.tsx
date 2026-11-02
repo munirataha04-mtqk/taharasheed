@@ -1,6 +1,6 @@
-
 "use client";
 
+import EmailLink from "./EmailLink";
 import { useEffect, useState } from "react";
 import { Mail, Phone } from "lucide-react";
 import Image from "next/image";
@@ -106,7 +106,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="bg-[#002F32] px-5 py-6 text-[#FFFFFF] md:px-8">
+    <footer className="bg-[#003D40] px-5 py-6 text-[#FFFFFF] md:px-8">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 lg:flex-row lg:gap-4">
         {/* Logo */}
         <Image
@@ -180,14 +180,10 @@ export default function Footer() {
           )}
 
           {c.email && (
-            <a
-              href={`mailto:${c.email}`}
-              aria-label="Send an email"
-              className={iconLink}
-            >
-              <Mail size={16} aria-hidden="true" />
-            </a>
-          )}
+            <EmailLink email={c.email} ariaLabel="Send an email" className={iconLink}>
+            <Mail size={16} aria-hidden="true" />
+            </EmailLink>
+       )}
 
           {c.instagram && (
             <a
