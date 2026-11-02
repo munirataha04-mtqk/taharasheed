@@ -11,7 +11,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#107F94]/40 bg-[#003D40]/95 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-[#107F94]/40 bg-[#2f3239]/95 backdrop-blur-md">
       <div className="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-[60px]">
         {/* Brand */}
         <Link

@@ -18,7 +18,7 @@ export default async function FeaturedProjects() {
   const featured = (await readJson<Project[]>(projectsFile, [])).slice(0, 5);
 
   return (
-    <section id="portfolio" className="bg-[#003D40] text-[#FFFFFF]">
+    <section id="portfolio" className="bg-[#2f3239] text-[#FFFFFF]">
       <div className="mx-auto max-w-[1440px] px-5 py-10 sm:px-8 sm:py-12 lg:px-12 lg:py-10">
         {/* Section heading */}
         <div className="text-center">
@@ -30,7 +30,7 @@ export default async function FeaturedProjects() {
             Featured Projects
           </h2>
 
-          <div className="mx-auto mt-3 h-[2px] w-10 bg-[#107F94]" />
+          <div className="mx-auto mt-3 h-[2px] w-10 bg-[#2f3239]" />
         </div>
 
         {/* Project gallery */}

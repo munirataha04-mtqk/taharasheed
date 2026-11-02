@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import {
   Phone,
@@ -27,7 +28,6 @@ export default async function Contact() {
       id="contact"
       className="relative isolate overflow-hidden bg-[#003D40] text-white"
     >
-      {/* Subtle background texture */}
       <Image
         src="/images/cnc-1.jpg"
         alt=""
@@ -36,11 +36,11 @@ export default async function Contact() {
         className="-z-10 object-cover opacity-[0.035]"
       />
 
-      {/* Main contact layout */}
-      <div className="flex w-full flex-col gap-9 px-6 py-10 sm:px-8 md:px-10 lg:flex-row lg:items-stretch lg:justify-between lg:gap-0 lg:px-14 lg:py-8 xl:px-16">
+      <div className="flex w-full flex-col gap-0 lg:flex-row lg:items-stretch">
 
-        {/* Contact information */}
-        <div className="min-w-0">
+        {/* Get in Touch */}
+        <div className="min-w-0 flex-1 bg-[#003D40] px-6 py-10 sm:px-8 md:px-10 lg:px-14 lg:py-8 xl:px-16">
+
           <p className="text-[10px] font-medium uppercase tracking-[0.32em] text-[#107F94]">
             Get in Touch
           </p>
@@ -57,7 +57,6 @@ export default async function Contact() {
 
           <ul className="mt-4 space-y-2.5 text-[11px] text-white sm:text-xs">
 
-            {/* Product / service */}
             {s.serviceLine && (
               <li className="flex items-start gap-3">
                 <Wrench
@@ -66,13 +65,10 @@ export default async function Contact() {
                   className="mt-0.5 shrink-0 text-[#107F94]"
                   aria-hidden="true"
                 />
-                <span className="max-w-[300px]">
-                  {s.serviceLine}
-                </span>
+                <span className="max-w-[300px]">{s.serviceLine}</span>
               </li>
             )}
 
-            {/* Location */}
             {s.location && (
               <li className="flex items-center gap-3">
                 <MapPin
@@ -85,7 +81,6 @@ export default async function Contact() {
               </li>
             )}
 
-            {/* Delivery */}
             {s.deliveryNote && (
               <li className="flex items-center gap-3">
                 <Truck
@@ -98,7 +93,6 @@ export default async function Contact() {
               </li>
             )}
 
-            {/* Phone */}
             {s.phone && (
               <li className="flex items-center gap-3">
                 <Phone
@@ -107,16 +101,12 @@ export default async function Contact() {
                   className="shrink-0 text-[#107F94]"
                   aria-hidden="true"
                 />
-                <a
-                  href={telUrl}
-                  className="transition-colors duration-200 hover:text-[#107F94]"
-                >
+                <a href={telUrl} className="transition-colors duration-200 hover:text-[#107F94]">
                   {s.phone}
                 </a>
               </li>
             )}
 
-            {/* WhatsApp */}
             {wa && (
               <li className="flex items-center gap-3">
                 <MessageCircle
@@ -136,7 +126,6 @@ export default async function Contact() {
               </li>
             )}
 
-            {/* Email */}
             {s.email && (
               <li className="flex items-center gap-3">
                 <Mail
@@ -145,19 +134,17 @@ export default async function Contact() {
                   className="shrink-0 text-[#107F94]"
                   aria-hidden="true"
                 />
-                <a
-                  href={mailUrl}
-                  className="break-all transition-colors duration-200 hover:text-[#107F94]"
-                >
+                <a href={mailUrl} className="break-all transition-colors duration-200 hover:text-[#107F94]">
                   {s.email}
                 </a>
               </li>
             )}
+
           </ul>
         </div>
 
-        {/* Contact form */}
-        <div className="w-full min-w-0 lg:w-[700px] lg:border-l lg:border-[#107F94]/30 lg:pl-8 [&>*]:!max-w-none [&>*]:w-full">
+        {/* Contact Form */}
+        <div className="w-full min-w-0 flex-1 bg-[#003D40] px-6 py-10 sm:px-8 md:px-10 lg:px-8 lg:py-8 [&>*]:!max-w-none [&>*]:w-full">
           <ContactForm />
         </div>
 

@@ -1,167 +1,114 @@
 
-"use client";
+import Image from "next/image";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Truck,
+  Wrench,
+} from "lucide-react";
+import ContactForm from "./ContactForm";
+import { getSettings } from "@/lib/content";
 
-import { useState } from "react";
+export default async function Contact() {
+  const s = await getSettings();
 
-const field =
-  "min-h-[44px] w-full rounded-lg border border-[#107F94]/50 bg-[#003D40] px-3 py-2 text-sm text-white outline-none placeholder:text-white/60 focus:border-[#107F94] focus:ring-1 focus:ring-[#107F94]/30";
+  const telUrl = `tel:${s.phone.replace(/[^\d+]/g, "")}`;
+  const mailUrl = `mailto:${s.email}`;
 
-export default function ContactForm() {
-  const [f, setF] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    service: "Laser Cutting",
-    message: "",
-    website: "",
-  });
-
-  const [status, setStatus] = useState<
-    "idle" | "sending" | "sent" | "error"
-  >("idle");
-
-  const [error, setError] = useState("");
-
-  const send = async () => {
-    setStatus("sending");
-    setError("");
-
-    try {
-      const res = await fetch("/api/inquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(f),
-      });
-
-      const data = await res.json().catch(() => ({}));
-
-      if (!res.ok) {
-        throw new Error(
-          data.error || "Could not send. Please try again."
-        );
-      }
-
-      setStatus("sent");
-
-      setF({
-        name: "",
-        email: "",
-        phone: "",
-        service: "Laser Cutting",
-        message: "",
-        website: "",
-      });
-    } catch (e) {
-      setError(
-        e instanceof Error
-          ? e.message
-          : "Could not send. Please try again."
-      );
-
-      setStatus("error");
-    }
-  };
-
-  if (status === "sent") {
-    return (
-      <p
-        role="status"
-        className="text-sm font-medium text-white"
-      >
-        Thank you! Your inquiry was sent. We will contact you soon.
-      </p>
-    );
-  }
+  const digits = s.whatsappNumber.replace(/\D/g, "");
+  const wa = digits.startsWith("0")
+    ? `255${digits.slice(1)}`
+    : digits;
 
   return (
-    <div className="w-full max-w-md space-y-3">
-      <input
-        className={field}
-        placeholder="Your name"
-        aria-label="Your name"
-        autoComplete="name"
-        value={f.name}
-        onChange={(e) =>
-          setF({ ...f, name: e.target.value })
-        }
+    <section
+      id="contact"
+      className="relative isolate overflow-hidden bg-[#003D40] text-white"
+    >
+      <Image
+        src="/images/cnc-1.jpg"
+        alt=""
+        fill
+        sizes="100vw"
+        className="-z-10 object-cover opacity-[0.035]"
       />
 
-      <input
-        className={field}
-        type="email"
-        placeholder="Email"
-        aria-label="Email"
-        autoComplete="email"
-        value={f.email}
-        onChange={(e) =>
-          setF({ ...f, email: e.target.value })
-        }
-      />
+      <div className="flex w-full flex-col lg:flex-row">
 
-      <input
-        className={field}
-        type="tel"
-        placeholder="Phone"
-        aria-label="Phone"
-        autoComplete="tel"
-        value={f.phone}
-        onChange={(e) =>
-          setF({ ...f, phone: e.target.value })
-        }
-      />
+        {/* LEFT SIDE - 50% */}
+        <div className="w-full bg-[#003D40] px-6 py-10 sm:px-8 md:px-10 lg:w-1/2 lg:flex-none lg:px-14 lg:py-12 xl:px-16">
 
-      <select
-        className={field}
-        aria-label="Select a service"
-        value={f.service}
-        onChange={(e) =>
-          setF({ ...f, service: e.target.value })
-        }
-      >
-        <option>Laser Cutting</option>
-        <option>CNC Design</option>
-        <option>Custom Fabrication</option>
-      </select>
+          <p className="text-[10px] font-medium uppercase tracking-[0.32em] text-[#107F94]">
+            Get in Touch
+          </p>
 
-      <textarea
-        className={`${field} min-h-[120px] resize-y`}
-        placeholder="Your message"
-        aria-label="Your message"
-        value={f.message}
-        onChange={(e) =>
-          setF({ ...f, message: e.target.value })
-        }
-      />
+          <h2 className="mt-1.5 font-serif text-[27px] leading-[1.12] tracking-tight text-white sm:text-3xl">
+            Let&apos;s Build Something
+            <br className="hidden sm:block" /> Great Together
+          </h2>
 
-      {/* Hidden spam trap */}
-      <input
-        tabIndex={-1}
-        autoComplete="off"
-        aria-hidden="true"
-        className="hidden"
-        value={f.website}
-        onChange={(e) =>
-          setF({ ...f, website: e.target.value })
-        }
-      />
+          <p className="mt-2.5 max-w-[310px] text-[11px] leading-[1.8] text-white/75 sm:text-xs">
+            For inquiries, quotations or to discuss your project,
+            feel free to contact us. We&apos;re here to help!
+          </p>
 
-      {status === "error" && (
-        <p
-          role="alert"
-          className="text-sm font-medium text-red-300"
-        >
-          {error}
-        </p>
-      )}
+          <ul className="mt-4 space-y-2.5 text-[11px] text-white sm:text-xs">
 
-      <button
-        type="button"
-        onClick={send}
-        disabled={status === "sending"}
-        className="min-h-[44px] w-full rounded-lg bg-[#107F94] px-4 py-2 text-sm font-semibold text-white transition-colors duration-200 hover:bg-white hover:text-[#003D40] disabled:cursor-not-allowed disabled:opacity-50"
-      >
-        {status === "sending" ? "Sending..." : "Send Inquiry"}
-      </button>
-    </div>
+            {s.serviceLine && (
+              <li className="flex items-start gap-3">
+                <Wrench size={14} className="mt-0.5 shrink-0 text-[#107F94]" />
+                <span className="max-w-[300px]">{s.serviceLine}</span>
+              </li>
+            )}
+
+            {s.location && (
+              <li className="flex items-center gap-3">
+                <MapPin size={15} className="shrink-0 text-[#107F94]" />
+                <span>{s.location}</span>
+              </li>
+            )}
+
+            {s.deliveryNote && (
+              <li className="flex items-center gap-3">
+                <Truck size={15} className="shrink-0 text-[#107F94]" />
+                <span>{s.deliveryNote}</span>
+              </li>
+            )}
+
+            {s.phone && (
+              <li className="flex items-center gap-3">
+                <Phone size={14} className="shrink-0 text-[#107F94]" />
+                <a href={telUrl}>{s.phone}</a>
+              </li>
+            )}
+
+            {wa && (
+              <li className="flex items-center gap-3">
+                <MessageCircle size={14} className="shrink-0 text-[#107F94]" />
+                <a href={`https://wa.me/${wa}`} target="_blank" rel="noopener noreferrer">
+                  wa.me/{wa}
+                </a>
+              </li>
+            )}
+
+            {s.email && (
+              <li className="flex items-center gap-3">
+                <Mail size={14} className="shrink-0 text-[#107F94]" />
+                <a href={mailUrl} className="break-all">{s.email}</a>
+              </li>
+            )}
+
+          </ul>
+        </div>
+
+        {/* RIGHT SIDE - 50% */}
+        <div className="w-full bg-[#003D40] px-6 py-10 sm:px-8 md:px-10 lg:w-1/2 lg:flex-none lg:px-12 lg:py-12">
+          <ContactForm />
+        </div>
+
+      </div>
+    </section>
   );
 }

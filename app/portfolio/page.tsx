@@ -31,16 +31,15 @@ export default async function PortfolioPage({
     ? all.filter((p) => p.category === active)
     : all;
 
-  // Category button styling
   const chip = (selected: boolean) =>
     `inline-flex min-h-[40px] items-center rounded-full border px-5 py-2 text-[11px] font-medium transition-all duration-300 ${
       selected
-        ? "border-white bg-white text-[#003D40]"
-        : "border-white/50 bg-transparent text-white hover:border-[#107F94] hover:bg-[#107F94]/20 hover:text-white"
+        ? "border-[#003D40] bg-[#003D40] text-white"
+        : "border-[#003D40]/30 bg-transparent text-[#003D40] hover:border-[#107F94] hover:bg-[#107F94]/10"
     }`;
 
   return (
-    <section className="min-h-screen bg-[#003D40] text-white">
+    <section className="min-h-screen bg-white text-black">
       <div className="mx-auto max-w-[1440px] px-5 py-10 sm:px-8 sm:py-12 lg:px-12">
 
         {/* Section heading */}
@@ -49,7 +48,7 @@ export default async function PortfolioPage({
             Royal Metalworks
           </p>
 
-          <h1 className="mt-2 font-serif text-[30px] leading-tight tracking-[-0.025em] text-white sm:text-4xl">
+          <h1 className="mt-2 font-serif text-[30px] leading-tight tracking-[-0.025em] text-[#003D40] sm:text-4xl">
             All Projects
           </h1>
 
@@ -78,7 +77,7 @@ export default async function PortfolioPage({
 
         {/* Project gallery */}
         {projects.length === 0 ? (
-          <p className="mt-10 text-center text-sm text-white/60">
+          <p className="mt-10 text-center text-sm text-black/60">
             {active
               ? "No projects in this category yet."
               : "New projects are coming soon."}
@@ -93,7 +92,7 @@ export default async function PortfolioPage({
                 className="group min-w-0 text-center"
               >
                 {/* Project image */}
-                <div className="relative block aspect-[4/5] overflow-hidden border border-white/15 bg-black/20 transition-colors duration-300 group-hover:border-[#107F94]">
+                <div className="relative block aspect-[4/5] overflow-hidden border border-[#003D40]/15 bg-[#003D40]/5 transition-colors duration-300 group-hover:border-[#107F94]">
 
                   {project.image ? (
                     <Image
@@ -112,16 +111,16 @@ export default async function PortfolioPage({
                 </div>
 
                 {/* Project details */}
-                <h3 className="mt-3 font-serif text-[19px] leading-tight tracking-[-0.02em] text-white transition-colors duration-300 group-hover:text-[#107F94] sm:text-xl">
+                <h3 className="mt-3 font-serif text-[19px] leading-tight tracking-[-0.02em] text-[#003D40] transition-colors duration-300 group-hover:text-[#107F94] sm:text-xl">
                   {project.title}
                 </h3>
 
-                <p className="mt-1 text-[10px] leading-relaxed text-white/65 sm:text-[11px]">
+                <p className="mt-1 text-[10px] leading-relaxed text-black/65 sm:text-[11px]">
                   {project.category}
                 </p>
 
                 {project.description && (
-                  <p className="mt-1 line-clamp-3 text-[10px] leading-relaxed text-white/65 sm:text-[11px]">
+                  <p className="mt-1 line-clamp-3 text-[10px] leading-relaxed text-black/60 sm:text-[11px]">
                     {project.description}
                   </p>
                 )}
