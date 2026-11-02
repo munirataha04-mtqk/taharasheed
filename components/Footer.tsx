@@ -106,7 +106,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="bg-[#003D40] px-5 py-6 text-[#FFFFFF] md:px-8">
+    <footer className="bg-[#002F32] px-5 py-6 text-[#FFFFFF] md:px-8">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 lg:flex-row lg:gap-4">
         {/* Logo */}
         <Image
