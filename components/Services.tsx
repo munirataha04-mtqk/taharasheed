@@ -38,7 +38,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="bg-[#003D40] text-white"
+      className="bg-white text-[#003D40]"
     >
       <div className="mx-auto max-w-[1440px] px-5 py-10 sm:px-8 sm:py-12 lg:px-12 lg:py-14">
 
@@ -48,7 +48,7 @@ export default function Services() {
             Our Services
           </p>
 
-          <h2 className="mt-2 font-serif text-[30px] leading-tight tracking-[-0.025em] text-white sm:text-4xl">
+          <h2 className="mt-2 font-serif text-[30px] leading-tight tracking-[-0.025em] text-[#003D40] sm:text-4xl">
             What We Offer
           </h2>
 
@@ -61,9 +61,9 @@ export default function Services() {
           {services.map(({ title, text, Icon }) => (
             <li
               key={title}
-              className="group flex flex-col items-center px-4 text-center lg:min-h-[150px] lg:border-l lg:border-white/20 lg:first:border-l-0"
+              className="group flex flex-col items-center px-4 text-center lg:min-h-[150px] lg:border-l lg:border-[#003D40]/15 lg:first:border-l-0"
             >
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/10 transition-colors duration-300 group-hover:bg-[#107F94]/25">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#003D40]/5 transition-colors duration-300 group-hover:bg-[#107F94]/15">
                 <Icon
                   size={29}
                   strokeWidth={1.4}
@@ -72,11 +72,11 @@ export default function Services() {
                 />
               </div>
 
-              <h3 className="mt-3 font-serif text-[18px] leading-tight text-white">
+              <h3 className="mt-3 font-serif text-[18px] leading-tight text-[#003D40]">
                 {title}
               </h3>
 
-              <p className="mt-2 max-w-[190px] text-xs leading-[1.7] text-white/70">
+              <p className="mt-2 max-w-[190px] text-xs leading-[1.7] text-[#003D40]/70">
                 {text}
               </p>
             </li>

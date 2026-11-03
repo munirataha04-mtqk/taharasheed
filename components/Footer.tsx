@@ -13,7 +13,7 @@ type Contact = {
 };
 
 const iconLink =
-  "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#FFFFFF]/70 text-[#FFFFFF] transition-colors duration-200 hover:border-[#107F94] hover:bg-[#107F94] hover:text-[#FFFFFF]";
+  "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#003D40]/50 text-[#003D40] transition-colors duration-200 hover:border-[#107F94] hover:bg-[#107F94] hover:text-white";
 
 // Instagram outline icon
 function InstagramIcon({ size = 16 }: { size?: number }) {
@@ -59,6 +59,7 @@ function WhatsAppIcon({ size = 16 }: { size?: number }) {
 // Converts a Tanzanian phone number to the format required by wa.me
 function waNumber(value: string) {
   const digits = value.replace(/\D/g, "");
+
   return digits.startsWith("0")
     ? `255${digits.slice(1)}`
     : digits;
@@ -106,8 +107,9 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="bg-[#003D40] px-5 py-6 text-[#FFFFFF] md:px-8">
+    <footer className="bg-white px-5 py-6 text-[#003D40]">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 lg:flex-row lg:gap-4">
+
         {/* Logo */}
         <Image
           src="/images/logo.jpg"
@@ -155,7 +157,7 @@ export default function Footer() {
           </a>
         </nav>
 
-        {/* White contact icons */}
+        {/* Contact icons */}
         <div className="flex flex-wrap items-center justify-center gap-3">
           {c.phone && (
             <a
@@ -180,10 +182,14 @@ export default function Footer() {
           )}
 
           {c.email && (
-            <EmailLink email={c.email} ariaLabel="Send an email" className={iconLink}>
-            <Mail size={16} aria-hidden="true" />
+            <EmailLink
+              email={c.email}
+              ariaLabel="Send an email"
+              className={iconLink}
+            >
+              <Mail size={16} aria-hidden="true" />
             </EmailLink>
-       )}
+          )}
 
           {c.instagram && (
             <a
@@ -207,7 +213,7 @@ export default function Footer() {
       </div>
 
       {/* Copyright */}
-      <p className="mt-4 text-center text-xs tracking-wide text-[#FFFFFF]/80">
+      <p className="mt-4 text-center text-xs tracking-wide text-[#003D40]/80">
         © 2026 Royal Metalworks. All rights reserved.
       </p>
     </footer>

@@ -35,12 +35,12 @@ export default async function About() {
   return (
     <section
       id="about"
-      className="bg-[#003D40] text-white"
+      className="bg-white text-[#003D40]"
     >
       <div className="mx-auto grid max-w-[1440px] items-center gap-8 px-5 py-10 sm:px-8 sm:py-12 lg:grid-cols-[0.95fr_1.65fr] lg:gap-10 lg:px-12 lg:py-10">
 
         {/* Metalwork image */}
-        <div className="relative aspect-[4/3] w-full overflow-hidden bg-white/5">
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#003D40]/5">
           <Image
             src="/images/laser-machine.png"
             alt="Precision laser cutting machine working on a decorative metal sheet"
@@ -59,7 +59,7 @@ export default async function About() {
               About Me
             </p>
 
-            <h2 className="mt-2 font-serif text-[30px] leading-[1.12] tracking-[-0.025em] text-white sm:text-4xl">
+            <h2 className="mt-2 font-serif text-[30px] leading-[1.12] tracking-[-0.025em] text-[#003D40] sm:text-4xl">
               Quality Metalwork,
               <br />
               Crafted with Precision
@@ -67,7 +67,7 @@ export default async function About() {
 
             <div className="mt-3 h-[2px] w-10 bg-[#107F94]" />
 
-            <p className="mt-4 text-[12px] leading-[1.85] text-white/75 sm:text-[13px]">
+            <p className="mt-4 text-[12px] leading-[1.85] text-[#003D40]/75 sm:text-[13px]">
               At Royal Metalworks, I bring your ideas to life with high-quality
               materials, advanced laser cutting technology and skilled
               craftsmanship. Whether it&apos;s a modern gate, a custom pergola
@@ -82,7 +82,7 @@ export default async function About() {
                   href={instaUrl(personalInstagram)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium text-white underline underline-offset-4 transition-colors hover:text-[#107F94]"
+                  className="font-medium text-[#003D40] underline underline-offset-4 transition-colors hover:text-[#107F94]"
                 >
                   Instagram
                 </a>
@@ -91,7 +91,7 @@ export default async function About() {
           </div>
 
           {/* Company benefits */}
-          <ul className="flex flex-col gap-5 border-t border-white/20 pt-5 md:ml-5 md:gap-6 md:border-l md:border-t-0 md:pl-6 md:pt-0">
+          <ul className="flex flex-col gap-5 border-t border-[#003D40]/20 pt-5 md:ml-5 md:gap-6 md:border-l md:border-t-0 md:pl-6 md:pt-0">
             {points.map(({ label, Icon }) => (
               <li
                 key={label}
@@ -104,7 +104,7 @@ export default async function About() {
                   aria-hidden="true"
                 />
 
-                <span className="text-[11px] leading-relaxed text-white sm:text-xs">
+                <span className="text-[11px] leading-relaxed text-[#003D40] sm:text-xs">
                   {label}
                 </span>
               </li>
