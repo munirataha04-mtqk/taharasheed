@@ -2,7 +2,9 @@
 
 import EmailLink from "./EmailLink";
 import { useEffect, useState } from "react";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, MessageCircle } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import Image from "next/image";
 
 type Contact = {
@@ -15,48 +17,6 @@ type Contact = {
 const iconLink =
   "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#003D40]/50 text-[#003D40] transition-colors duration-200 hover:border-[#107F94] hover:bg-[#107F94] hover:text-white";
 
-// Instagram outline icon
-function InstagramIcon({ size = 16 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-    </svg>
-  );
-}
-
-// WhatsApp outline icon
-function WhatsAppIcon({ size = 16 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
-      <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" />
-    </svg>
-  );
-}
-
-// Converts a Tanzanian phone number to the format required by wa.me
 function waNumber(value: string) {
   const digits = value.replace(/\D/g, "");
 
@@ -70,9 +30,7 @@ function instaUrl(value: string) {
 
   if (!v) return "";
 
-  if (/^https?:\/\//i.test(v)) {
-    return v;
-  }
+  if (/^https?:\/\//i.test(v)) return v;
 
   if (v.includes("instagram.com")) {
     return `https://${v.replace(/^\/+/, "")}`;
@@ -91,10 +49,12 @@ export default function Footer() {
 
   // Contact details come from Admin > Settings
   useEffect(() => {
+    let active = true;
+
     fetch("/api/settings", { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))
       .then((s) => {
-        if (s) {
+        if (active && s) {
           setC({
             phone: s.phone ?? "",
             whatsapp: s.whatsapp ?? "",
@@ -104,21 +64,28 @@ export default function Footer() {
         }
       })
       .catch(() => {});
+
+    return () => {
+      active = false;
+    };
   }, []);
 
   return (
     <footer className="bg-white px-5 py-6 text-[#003D40]">
+
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 lg:flex-row lg:gap-4">
 
-        {/* Logo */}
-        <Image
-          src="/images/logo.jpg"
-          alt="Royal Metalworks logo"
-          width={160}
-          height={80}
-          priority
-          className="h-12 w-28 shrink-0 object-contain sm:h-14 sm:w-36"
-        />
+        {/* Logo with gray background */}
+        <div className="flex h-16 w-36 shrink-0 items-center justify-center rounded-md bg-gray-400 px-2 sm:h-[72px] sm:w-40">
+          <Image
+            src="/images/logo.jpg"
+            alt="Royal Metalworks logo"
+            width={160}
+            height={80}
+            priority
+            className="h-12 w-32 object-contain sm:h-14 sm:w-36"
+          />
+        </div>
 
         {/* Navigation */}
         <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm">
@@ -159,6 +126,7 @@ export default function Footer() {
 
         {/* Contact icons */}
         <div className="flex flex-wrap items-center justify-center gap-3">
+
           {c.phone && (
             <a
               href={`tel:${c.phone.replace(/[^\d+]/g, "")}`}
@@ -177,7 +145,7 @@ export default function Footer() {
               aria-label="Chat on WhatsApp"
               className={iconLink}
             >
-              <WhatsAppIcon size={16} />
+              <MessageCircle size={16} aria-hidden="true" />
             </a>
           )}
 
@@ -199,9 +167,14 @@ export default function Footer() {
               aria-label="Instagram"
               className={iconLink}
             >
-              <InstagramIcon size={16} />
+              <FontAwesomeIcon
+                icon={faInstagram}
+                className="text-base"
+                aria-hidden="true"
+              />
             </a>
           )}
+
         </div>
       </div>
 
@@ -216,6 +189,7 @@ export default function Footer() {
       <p className="mt-4 text-center text-xs tracking-wide text-[#003D40]/80">
         © 2026 Royal Metalworks. All rights reserved.
       </p>
+
     </footer>
   );
 }
